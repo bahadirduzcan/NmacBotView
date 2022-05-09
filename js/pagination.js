@@ -30,7 +30,7 @@ async function pagination() {
         }
     }
 
-    if(pageStartNumber != maxPageNumber) {
+    if(activePage != maxPageNumber) {
         $('#pagination').append('<a href="?page='+(activePage+1)+'"><li style="display: inline;" class="btn btn-outline-dark mx-1">></li></a>');
         $('#pagination').append('<a href="?page='+limitPageNumber+'"><li style="display: inline;" class="btn btn-outline-dark mx-1">>></li></a>');
     }
