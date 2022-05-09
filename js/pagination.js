@@ -13,6 +13,11 @@ async function pagination() {
     let pageStartNumber = activePage-5 <= 0 ? 1 : activePage-5;
     let maxPageNumber = pageStartNumber+9 >= limitPageNumber ? limitPageNumber : pageStartNumber+9;
 
+    if(activePage != 1) {
+        $('#pagination').append('<a href="?page=1"><li style="display: inline;" class="btn btn-outline-dark mx-1"><<</li></a>');
+        $('#pagination').append('<a href="?page='+(activePage-1)+'"><li style="display: inline;" class="btn btn-outline-dark mx-1"><</li></a>');
+    }
+
     for(let i=pageStartNumber; i<=maxPageNumber; i++) {
         if(urlPath[urlPath.length-1] === "index.html" && i === 1) {
             $('#pagination').append('<li style="display: inline;" class="btn btn-outline-dark mx-1 liselect">'+i+'</li>');
@@ -25,6 +30,11 @@ async function pagination() {
         }
     }
 
+    if(pageStartNumber != maxPageNumber) {
+        $('#pagination').append('<a href="?page='+(activePage+1)+'"><li style="display: inline;" class="btn btn-outline-dark mx-1">></li></a>');
+        $('#pagination').append('<a href="?page='+limitPageNumber+'"><li style="display: inline;" class="btn btn-outline-dark mx-1">>></li></a>');
+    }
+
 }
 
 function asyncAjax(){
@@ -33,11 +43,14 @@ function asyncAjax(){
             url: "http://localhost:3000/getMaxPageNumber",
             type: "GET",
             success: function(body) {
-                resolve(body.data.maxPageNumber) // Resolve promise and when success
+                resolve(body.data.maxPageNumber)
             },
             error: function(err) {
-                reject(err) // Reject the promise and go to catch()
+                reject(err)
             }
         });
     });
 }
+
+
+
